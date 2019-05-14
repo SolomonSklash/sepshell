@@ -8,11 +8,11 @@
 # http://www.fileformat.info/info/unicode/char/search.htm
 # http://www.personal.psu.edu/ejp10/blogs/gotunicode/charts/runes.html
 PROMPT_NORMAL='●' # ϟ ⟆ ⨠ ⁑ ⁝ ● 🍕 🍺
-PROMPT_ERROR='●' # ✕ ⨵ ●
-PROMPT_ROOT='●' # ✱ ✸ ♛ ⟢ ✧ ϟ
-PROMPT_JOB='←' # ← ⇤ ⤶ ⟲ «
+PROMPT_ERROR='✕' # ● ⨵ ●
+PROMPT_ROOT='#' ● ✱ ✸ ♛ ⟢ ✧ ϟ
+PROMPT_JOB='⟲' # ← ⇤ ← ⤶  «
 PROMPT_ARROW='→' # → ⇥ ⤳ ➦ ↪ ↳ »
-PROMPT_BRANCH='ᚶ' #  ᚠ ᚳ ᚶ ᚴ
+PROMPT_BRANCH='' #  ᚶ ᚠ ᚳ ᚶ ᚴ
 PROMPT_MERGE='»ᛖ«' # ⨇ ᛖ
 PROMPT_REBASE='»ᚱ«' # ᚱ
 PROMPT_BISECT='«ᛒ«' # ᛒ ᛔ
@@ -92,6 +92,11 @@ prompt_dir() {
   # echo $(pwd | sed -e "s,^$HOME,~," | sed "s@\(.\)[^/]*/@\1/@g")
 }
 
+prompt_id() {
+  # prompt_segment black blue '%{%F{cyan}%}%m %{%F{blue}%}'
+  prompt_segment black cyan '%m'
+}
+
 prompt_status() {
   local symbols=()
 
@@ -115,6 +120,7 @@ prompt_status() {
 build_prompt() {
   RETVAL=$?
   prompt_status
+	prompt_id
   prompt_dir
   prompt_git
   prompt_end
